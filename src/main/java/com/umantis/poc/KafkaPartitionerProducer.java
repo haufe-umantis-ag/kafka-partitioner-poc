@@ -24,10 +24,5 @@ public class KafkaPartitionerProducer extends KafkaProducer {
                 System.out.println("Sent:" + msg + ", User: " + user + ", Partition: " + metadata.partition());
             }
         });
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 }
