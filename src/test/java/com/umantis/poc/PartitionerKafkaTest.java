@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringKafkaApplicationTests {
+public class PartitionerKafkaTest {
 
     @Autowired
     public KafkaProducer<String, String> producer;

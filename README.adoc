@@ -1,0 +1,31 @@
+= Haufe Kafka Partitioner PoC
+
+In order to be able to execute the integration tests existing in the project, you will need to have active a real kafka and zookeeper service.
+If you don't have an already existing installation, you can use a docker instansce this way:
+
+[source,bash]
+----
+docker run -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=`docker-machine ip \`docker-machine active\`` --env ADVERTISED_PORT=9092 spotify/kafka
+----
+[%hardbreaks]
+
+If you don't have docker-machine in your system you can always:
+
+[source,bash]
+----
+docker run -d -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=`ipconfig getifaddr en0` --env ADVERTISED_PORT=9092 spotify/kafka
+----
+[%hardbreaks]
+
+or the related windows commands....
+
+This PoC proves the usage of Kafka to solve the following requirements:
+
+=== Partition based data segregation:
+In order to have a real multitenant application, where messages from different customers are physically segregated, and therefore not located into the same file location,
+this PoC presents a way to do that using as a key element the partitioning feature present in Kafka.
+
+Running the spring test `PartitionerKafkaTest` 5 different messages will be sent to different partitions using a customized partitioner.
+A partition will be assigned for each customer but the consumer will be not aware of such separation.
+
+Parition 0 is reserved for unrecognized customers.
