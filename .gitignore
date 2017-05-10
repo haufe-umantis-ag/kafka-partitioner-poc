@@ -3,3 +3,4 @@
 kafka-poc.iml
 lib/
 target/
+*.iml

@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author David Espinosa.
  */
 @SpringBootApplication
-public class KafkaProducerApplication {
+public class KafkaPartitionerApplication {
 
     public static void main(String args[]) {
-        SpringApplication.run(KafkaProducerApplication.class, args);
+        SpringApplication.run(KafkaPartitionerApplication.class, args);
     }
 }
