@@ -1,13 +1,12 @@
 package com.umantis.poc;
 
-import static org.springframework.util.Assert.isTrue;
-
 import com.umantis.poc.admin.KafkaAdminUtils;
+import com.umantis.poc.partitioner.DatasetPartitionConsumer;
 import com.umantis.poc.partitioner.DatasetPartitionMessage;
+import com.umantis.poc.partitioner.DatasetPartitionProducer;
 import com.umantis.poc.partitioner.IUserService;
-import com.umantis.poc.partitioner.PartitionerConsumer;
-import com.umantis.poc.partitioner.PartitionerProducer;
 import com.umantis.poc.partitioner.UserServiceImpl;
+import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,17 +23,18 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DatasetPartitionerTest {
+public class InitialLoadTest {
 
     @Autowired
-    public PartitionerProducer partitionerProducer;
+    public DatasetPartitionProducer partitionerProducer;
 
     @Autowired
-    public PartitionerConsumer partitionerConsumer;
+    public DatasetPartitionConsumer partitionerConsumer;
 
     @Autowired
     public KafkaAdminUtils kafkaAdminUtils;
 
+    private IUserService iUserService = new UserServiceImpl();
     private static String TOPIC;
 
     @Value("${partition.topic}")
@@ -54,8 +54,12 @@ public class DatasetPartitionerTest {
 
     @Test()
     public void given_emptyDatasetPartitionTopic_when_newDatasetPartitionMessagesAreCreated_then_canBeRetrievedFromTopic() throws Exception {
-        IUserService iUserService = new UserServiceImpl();
+        flushData();
+        List<DatasetPartitionMessage> datasetPartitionMessages = partitionerConsumer.retrieveMessages();
+        Assertions.assertThat(iUserService.findAllUsers().size() == datasetPartitionMessages.size());
+    }
 
+    private void flushData() {
         int partitionCounter = 1;
         for (String user : iUserService.findAllUsers()) {
             DatasetPartitionMessage message = DatasetPartitionMessage.getBuilder()
@@ -68,9 +72,6 @@ public class DatasetPartitionerTest {
             partitionerProducer.send(message);
             partitionCounter++;
         }
-
-        List<DatasetPartitionMessage> datasetPartitionMessages = partitionerConsumer.retrieveMessages();
-        isTrue(partitionCounter == datasetPartitionMessages.size() + 1, "Messages correctly retrieved");
     }
 
     @After

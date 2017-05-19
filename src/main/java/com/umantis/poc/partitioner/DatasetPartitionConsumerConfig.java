@@ -6,6 +6,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
@@ -19,7 +20,8 @@ import java.util.Map;
  */
 @Configuration
 @EnableKafka
-public class PartitionerConsumerConfig {
+@DependsOn("TopicsInitializer")
+public class DatasetPartitionConsumerConfig {
 
     @Value("${kafka.servers}")
     private String servers;
@@ -34,7 +36,7 @@ public class PartitionerConsumerConfig {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "partitioner5");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "partitioner");
 
         return props;
     }
@@ -50,7 +52,7 @@ public class PartitionerConsumerConfig {
     }
 
     @Bean
-    public PartitionerConsumer partitionerConsumer() {
-        return new PartitionerConsumer(consumerConfigs(), new StringDeserializer(), new JsonDeserializer(DatasetPartitionMessage.class));
+    public DatasetPartitionConsumer partitionerConsumer() {
+        return new DatasetPartitionConsumer(consumerConfigs(), new StringDeserializer(), new JsonDeserializer(DatasetPartitionMessage.class));
     }
 }

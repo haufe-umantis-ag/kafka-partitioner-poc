@@ -4,24 +4,17 @@ import com.umantis.poc.admin.KafkaAdminUtils;
 import com.umantis.poc.model.BaseMessage;
 import com.umantis.poc.partitioner.IUserService;
 import com.umantis.poc.partitioner.UserServiceImpl;
-import org.I0Itec.zkclient.ZkClient;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.common.PartitionInfo;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
-import org.springframework.kafka.listener.MessageListenerContainer;
-import org.springframework.kafka.test.rule.KafkaEmbedded;
-import org.springframework.kafka.test.utils.ContainerTestUtils;
 import org.springframework.test.context.junit4.SpringRunner;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Basic partitioner test that checks that sent messages are stored in different partitions
  * @author David Espinosa.
  */
 @RunWith(SpringRunner.class)
@@ -29,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class PartitionerTest {
 
     @Autowired
-    public Producer producer;
+    public PartitionerProducer producer;
 
     @Autowired
     public Consumer consumer;
@@ -43,7 +36,6 @@ public class PartitionerTest {
     public void setTopic(String topic) {
         TOPIC = topic;
     }
-
 
     @Test()
     public void testReceive() throws Exception {
@@ -61,6 +53,4 @@ public class PartitionerTest {
         consumer.latch().await(10000, TimeUnit.MILLISECONDS);
         Assertions.assertThat(consumer.latch().getCount()).isEqualTo(0);
     }
-
-
 }

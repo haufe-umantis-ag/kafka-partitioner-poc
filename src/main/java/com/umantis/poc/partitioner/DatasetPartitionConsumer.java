@@ -14,12 +14,12 @@ import java.util.stream.StreamSupport;
 /**
  * @author David Espinosa.
  */
-public class PartitionerConsumer extends KafkaConsumer {
+public class DatasetPartitionConsumer extends KafkaConsumer {
 
     @Value("${partition.topic}")
     protected String partitionerTopic;
 
-    public PartitionerConsumer(final Map configs, final Deserializer keyDeserializer, final Deserializer valueDeserializer) {
+    public DatasetPartitionConsumer(final Map configs, final Deserializer keyDeserializer, final Deserializer valueDeserializer) {
         super(configs, keyDeserializer, valueDeserializer);
     }
 

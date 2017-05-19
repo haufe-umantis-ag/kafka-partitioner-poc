@@ -12,9 +12,9 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 /**
  * @author David Espinosa.
  */
-public class PartitionerProducer {
+public class DatasetPartitionProducer {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(PartitionerProducer.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(DatasetPartitionProducer.class);
 
     private KafkaTemplate<String, DatasetPartitionMessage> kafkaTemplate;
 
@@ -22,7 +22,7 @@ public class PartitionerProducer {
     private String partitionerTopic;
 
     @Autowired
-    public PartitionerProducer(KafkaTemplate<String, DatasetPartitionMessage> kafkaTemplate) {
+    public DatasetPartitionProducer(KafkaTemplate<String, DatasetPartitionMessage> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
