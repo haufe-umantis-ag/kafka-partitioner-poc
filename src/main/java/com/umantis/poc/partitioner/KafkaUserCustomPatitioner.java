@@ -3,11 +3,15 @@ package com.umantis.poc.partitioner;
 import com.umantis.poc.model.BaseMessage;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Map;
 
 public class KafkaUserCustomPatitioner implements Partitioner {
 
     private IUserService userService;
+
+    @Autowired
+    private DatasetPartitionerMap datasetPartitionerMap;
 
     public KafkaUserCustomPatitioner() {
         userService = new UserServiceImpl();

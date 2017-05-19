@@ -6,6 +6,7 @@ import kafka.server.ConfigType;
 import kafka.utils.ZkUtils;
 import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.ZkConnection;
+import org.apache.kafka.common.requests.MetadataResponse;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.data.ACL;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import scala.collection.JavaConversions;
+import scala.collection.Map;
 import java.util.List;
 import java.util.Properties;
 
@@ -72,6 +74,12 @@ public class KafkaAdminUtilsImpl implements KafkaAdminUtils {
     @Override
     public boolean topicExists(final String topic) {
         return AdminUtils.topicExists(zkUtils, topic);
+    }
+
+    @Override
+    public int getTopicPartitionsSize(final String topic) {
+        MetadataResponse.TopicMetadata topicMetadata = AdminUtils.fetchTopicMetadataFromZk(topic, zkUtils);
+        return topicMetadata.partitionMetadata().size();
     }
 
     @Override

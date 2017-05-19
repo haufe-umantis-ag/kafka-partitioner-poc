@@ -50,6 +50,13 @@ public interface KafkaAdminUtils {
     boolean topicExists(String topic);
 
     /**
+     * Returns number of partitions for given topic
+     * @param topic
+     * @return
+     */
+    int getTopicPartitionsSize(String topic);
+
+    /**
      * Lists all topics
      *
      * @return
