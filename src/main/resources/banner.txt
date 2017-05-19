@@ -5,5 +5,6 @@
 |  |  |  |  /  _____  \ |  `--'  | |  |     |  |____ 
 |__|  |__| /__/     \__\ \______/  |__|     |_______|
                                                      
-Kafka PoC project,        developed by David Espinosa
+Kafka Partitioner PoC project,
+         developed by David Espinosa & Gergely Szakács
 

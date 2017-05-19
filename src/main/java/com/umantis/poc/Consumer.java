@@ -9,9 +9,9 @@ import java.util.concurrent.CountDownLatch;
 /**
  * @author David Espinosa.
  */
-public class KafkaConsumer {
+public class Consumer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Consumer.class);
 
     private CountDownLatch latch = new CountDownLatch(5);
 
