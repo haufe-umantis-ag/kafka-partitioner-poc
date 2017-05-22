@@ -30,7 +30,7 @@ public class DatasetPartitionConsumer extends KafkaConsumer {
             System.out.println("Found message  " + record.key() + record.value());
         }
         unsubscribe();
-        close();
+//        close();
         List<DatasetPartitionMessage> collect = StreamSupport.stream(records.spliterator(), false)
                 .map(p -> p.value()).collect(Collectors.toList());
         return collect;

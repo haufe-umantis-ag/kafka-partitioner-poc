@@ -4,8 +4,10 @@ import com.umantis.poc.model.BaseMessage;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import java.util.Map;
 
+@Component
 public class KafkaUserCustomPatitioner implements Partitioner {
 
     private IUserService userService;
@@ -16,6 +18,12 @@ public class KafkaUserCustomPatitioner implements Partitioner {
     public KafkaUserCustomPatitioner() {
         userService = new UserServiceImpl();
     }
+
+//    @Autowired
+//    public KafkaUserCustomPatitioner(DatasetPartitionerMap datasetPartitionerMap) {
+//        userService = new UserServiceImpl();
+//        this.datasetPartitionerMap = datasetPartitionerMap;
+//    }
 
     @Override
     public void configure(Map<String, ?> configs) {

@@ -57,6 +57,21 @@ public interface KafkaAdminUtils {
     int getTopicPartitionsSize(String topic);
 
     /**
+     * Extends topic by an adding additional partitions with given replicationFactor
+     * @param topic
+     * @param partitions
+     * @param replicationFactor
+     */
+    void extendPartition(final String topic, int partitions, int replicationFactor);
+
+    /**
+     * Extends topic by an adding a single additional partition with given replicationFactor
+     * @param topic
+     * @param replicationFactor
+     */
+    void addPartition(final String topic, int replicationFactor);
+
+    /**
      * Lists all topics
      *
      * @return

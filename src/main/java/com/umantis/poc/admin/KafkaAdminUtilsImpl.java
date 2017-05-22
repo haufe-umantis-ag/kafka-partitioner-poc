@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import scala.collection.JavaConversions;
-import scala.collection.Map;
 import java.util.List;
 import java.util.Properties;
 
@@ -80,6 +79,18 @@ public class KafkaAdminUtilsImpl implements KafkaAdminUtils {
     public int getTopicPartitionsSize(final String topic) {
         MetadataResponse.TopicMetadata topicMetadata = AdminUtils.fetchTopicMetadataFromZk(topic, zkUtils);
         return topicMetadata.partitionMetadata().size();
+    }
+
+    @Override
+    public void extendPartition(final String topic, final int partitions, final int replicationFactor) {
+        AdminUtils.addPartitions(zkUtils, topic, partitions, "", true, RackAwareMode.Enforced$.MODULE$);
+        LOGGER.info("Extended partition for topic: " + topic + " to " + partitions);
+    }
+
+    @Override
+    public void addPartition(final String topic, final int replicationFactor) {
+        int topicPartitionsSize = this.getTopicPartitionsSize(topic);
+        this.extendPartition(topic, topicPartitionsSize + 1, replicationFactor);
     }
 
     @Override
