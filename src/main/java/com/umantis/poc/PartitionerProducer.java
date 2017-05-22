@@ -1,6 +1,7 @@
 package com.umantis.poc;
 
 import com.umantis.poc.model.BaseMessage;
+import com.umantis.poc.partitioner.DataSetPartitionServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,13 @@ public class PartitionerProducer {
     @Autowired
     private KafkaTemplate<String, BaseMessage> kafkaTemplate;
 
+    @Autowired
+    private DataSetPartitionServiceImpl dataSetPartitionerService;
+
     public void send(String topic, BaseMessage message) {
-        ListenableFuture<SendResult<String, BaseMessage>> future = kafkaTemplate.send(topic, message);
+        //partition assigned to dataSet is provided by the DataPartitionerService, if no existing partition is assigned a new one is created.
+        int partition = dataSetPartitionerService.getPartitionForDataSetId(topic, message.getDatasetId());
+        ListenableFuture<SendResult<String, BaseMessage>> future = kafkaTemplate.send(topic, partition, message.getDatasetId(), message);
         future.addCallback(new ListenableFutureCallback<SendResult<String, BaseMessage>>() {
 
             @Override

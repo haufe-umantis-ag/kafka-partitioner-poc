@@ -10,28 +10,30 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 /**
+ * Common producer for sending DataSerPartitionerMessages to the related topic.
+ *
  * @author David Espinosa.
  */
-public class DatasetPartitionProducer {
+public class DataSetPartitionerProducer {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(DatasetPartitionProducer.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(DataSetPartitionerProducer.class);
 
-    private KafkaTemplate<String, DatasetPartitionMessage> kafkaTemplate;
+    private KafkaTemplate<String, DataSetPartitionMessage> kafkaTemplate;
 
     @Value("${partition.topic}")
     private String partitionerTopic;
 
     @Autowired
-    public DatasetPartitionProducer(KafkaTemplate<String, DatasetPartitionMessage> kafkaTemplate) {
+    public DataSetPartitionerProducer(KafkaTemplate<String, DataSetPartitionMessage> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void send(DatasetPartitionMessage message) {
-        ListenableFuture<SendResult<String, DatasetPartitionMessage>> future = kafkaTemplate.send(partitionerTopic, message);
-        future.addCallback(new ListenableFutureCallback<SendResult<String, DatasetPartitionMessage>>() {
+    public void send(DataSetPartitionMessage message) {
+        ListenableFuture<SendResult<String, DataSetPartitionMessage>> future = kafkaTemplate.send(partitionerTopic, message);
+        future.addCallback(new ListenableFutureCallback<SendResult<String, DataSetPartitionMessage>>() {
 
             @Override
-            public void onSuccess(final SendResult<String, DatasetPartitionMessage> sendResult) {
+            public void onSuccess(final SendResult<String, DataSetPartitionMessage> sendResult) {
                 LOGGER.info("sent message= " + message + " with offset= " + sendResult.getRecordMetadata().offset());
             }
 

@@ -2,6 +2,7 @@ package com.umantis.poc;
 
 import com.umantis.poc.admin.KafkaAdminUtils;
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,33 @@ public class KafkaUtilsTest {
 
     @Autowired
     public KafkaAdminUtils kafkaAdminUtils;
+
     private static String TOPIC;
 
-    @Value("${partition.topic}")
+    @Value("${incremental.partition}")
     public void setTopic(String topic) {
         TOPIC = topic;
     }
 
+    @Before
+    public void setUp() {
+        if (kafkaAdminUtils.topicExists(TOPIC)) {
+            TOPIC += System.currentTimeMillis();
+        }
+        kafkaAdminUtils.createTopic(TOPIC, -1);
+    }
+
     @Test
-    public void getTopicPartionsTest() {
+    public void given_topicWithUniquePartition_when_extended_then_topicPartitionsAreIncreasesByOne() {
         int topicPartitionsSize = kafkaAdminUtils.getTopicPartitionsSize(TOPIC);
-        Assertions.assertThat(topicPartitionsSize==0);
+        Assertions.assertThat(topicPartitionsSize == 1);
+
+        kafkaAdminUtils.addPartition(TOPIC, 1);
+        topicPartitionsSize = kafkaAdminUtils.getTopicPartitionsSize(TOPIC);
+        Assertions.assertThat(topicPartitionsSize == 2);
+
+        kafkaAdminUtils.addPartition(TOPIC, 1);
+        topicPartitionsSize = kafkaAdminUtils.getTopicPartitionsSize(TOPIC);
+        Assertions.assertThat(topicPartitionsSize == 3);
     }
 }

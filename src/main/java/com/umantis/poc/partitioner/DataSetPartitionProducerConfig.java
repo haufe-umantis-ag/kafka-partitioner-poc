@@ -16,11 +16,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Base producer configuration
  * @author David Espinosa.
  */
 @Configuration
 @DependsOn("TopicsInitializer")
-public class DatasetPartitionProducerConfig {
+public class DataSetPartitionProducerConfig {
 
     @Value("${kafka.servers}")
     private String servers;
@@ -34,16 +35,16 @@ public class DatasetPartitionProducerConfig {
         return props;
     }
 
-    public ProducerFactory<String, DatasetPartitionMessage> producerFactory() {
+    public ProducerFactory<String, DataSetPartitionMessage> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), new JsonSerializer(new ObjectMapper()));
     }
 
-    public KafkaTemplate<String, DatasetPartitionMessage> kafkaTemplate() {
-        return new KafkaTemplate<String, DatasetPartitionMessage>(producerFactory());
+    public KafkaTemplate<String, DataSetPartitionMessage> kafkaTemplate() {
+        return new KafkaTemplate<String, DataSetPartitionMessage>(producerFactory());
     }
 
     @Bean
-    public DatasetPartitionProducer partitionerProducer() {
-        return new DatasetPartitionProducer(kafkaTemplate());
+    public DataSetPartitionerProducer partitionerProducer() {
+        return new DataSetPartitionerProducer(kafkaTemplate());
     }
 }

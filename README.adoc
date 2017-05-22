@@ -25,7 +25,7 @@ This PoC proves the usage of Kafka to solve the following requirements:
 In order to have a real multitenant application, where messages from different customers are physically segregated, and therefore not located into the same file location,
 this PoC presents a way to do that using as a key element the partitioning feature present in Kafka.
 
-Running the spring test `PartitionerKafkaTest` 5 different messages will be sent to different partitions using a customized partitioner.
+Running the spring test `PartitionerTest` 5 different messages will be sent to different partitions. These partitions will be automatically created on demand.
 A partition will be assigned for each customer but the consumer will be not aware of such separation.
 
-Parition 0 is reserved for unrecognized customers.
+Partion 0 is reserved for unrecognized customers.
