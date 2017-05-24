@@ -19,6 +19,7 @@ import java.util.Map;
  * Configuration for a Event Sourcing consumer.
  *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @Configuration
 @EnableKafka

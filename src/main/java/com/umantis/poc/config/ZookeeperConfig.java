@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for zookeeper
  *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @Configuration
 public class ZookeeperConfig {

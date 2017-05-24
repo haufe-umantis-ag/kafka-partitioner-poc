@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
+ * DataSetPartitionService implementation
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @Component
 public class DataSetPartitionServiceImpl implements DataSetPartitionerService {

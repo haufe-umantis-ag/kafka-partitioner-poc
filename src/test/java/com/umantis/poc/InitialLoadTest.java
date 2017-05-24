@@ -4,8 +4,8 @@ import com.umantis.poc.admin.KafkaAdminUtils;
 import com.umantis.poc.partitioner.DataSetPartitionConsumer;
 import com.umantis.poc.partitioner.DataSetPartitionMessage;
 import com.umantis.poc.partitioner.DataSetPartitionerProducer;
-import com.umantis.poc.partitioner.IUserService;
-import com.umantis.poc.partitioner.UserServiceImpl;
+import com.umantis.poc.users.UserService;
+import com.umantis.poc.users.UserServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,7 +35,7 @@ public class InitialLoadTest {
     @Autowired
     public KafkaAdminUtils kafkaAdminUtils;
 
-    private IUserService iUserService = new UserServiceImpl();
+    private UserService userService = new UserServiceImpl();
     private static String TOPIC;
 
     @Value("${partition.topic}")
@@ -56,12 +57,12 @@ public class InitialLoadTest {
     public void given_emptyDatasetPartitionTopic_when_newDatasetPartitionMessagesAreCreated_then_canBeRetrievedFromTopic() throws Exception {
         flushData();
         List<DataSetPartitionMessage> datasetPartitionMessages = partitionerConsumer.retrieveMessages();
-        Assertions.assertThat(iUserService.findAllUsers().size() == datasetPartitionMessages.size());
+        Assertions.assertThat(userService.findAllUsers().size() == datasetPartitionMessages.size());
     }
 
     private void flushData() {
         int partitionCounter = 1;
-        for (String user : iUserService.findAllUsers()) {
+        for (String user : userService.findAllUsers()) {
             DataSetPartitionMessage message = DataSetPartitionMessage.getBuilder()
                     .topic(TOPIC)
                     .message("Partition assignment for user " + user + " and TOPIC " + TOPIC)

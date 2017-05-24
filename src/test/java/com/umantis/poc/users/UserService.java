@@ -1,8 +1,8 @@
-package com.umantis.poc.partitioner;
+package com.umantis.poc.users;
 
 import java.util.List;
 
-public interface IUserService {
+public interface UserService {
 
     public Integer findUserId(String userName);
 

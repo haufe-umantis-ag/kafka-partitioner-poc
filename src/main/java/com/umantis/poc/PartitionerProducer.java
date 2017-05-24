@@ -11,7 +11,10 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 /**
+ * This partitioner producer sends messages to a concrete partition of kafka
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 public class PartitionerProducer {
 

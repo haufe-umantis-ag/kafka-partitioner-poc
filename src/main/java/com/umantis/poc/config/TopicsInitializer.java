@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 /**
  * The main point of this component is to initialize topics before exisitins listeners and produced are loaded into the context, as this way
  * we have observed errors at first message consuming.
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @Component("TopicsInitializer")
 public class TopicsInitializer {

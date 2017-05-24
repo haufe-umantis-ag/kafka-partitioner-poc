@@ -11,7 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
+ * Kafka Utilities test
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

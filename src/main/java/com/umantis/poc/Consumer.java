@@ -7,7 +7,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 import java.util.concurrent.CountDownLatch;
 
 /**
+ * Standard spring ckafka consumer.
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 public class Consumer {
 

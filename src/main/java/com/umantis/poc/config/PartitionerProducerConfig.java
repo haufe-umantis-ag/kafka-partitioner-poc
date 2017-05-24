@@ -2,7 +2,7 @@ package com.umantis.poc.config;
 
 import com.umantis.poc.PartitionerProducer;
 import com.umantis.poc.model.BaseMessage;
-import com.umantis.poc.partitioner.KafkaUserCustomPatitioner;
+import com.umantis.poc.partitioner.KafkaUserCustomPartitioner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -20,6 +20,7 @@ import java.util.Map;
 
 /**
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @Configuration
 @DependsOn("TopicsInitializer")
@@ -34,7 +35,7 @@ public class PartitionerProducerConfig {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, KafkaUserCustomPatitioner.class);
+//        props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, KafkaUserCustomPartitioner.class);
 
         return props;
     }

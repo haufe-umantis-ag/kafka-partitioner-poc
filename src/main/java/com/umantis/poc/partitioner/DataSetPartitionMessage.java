@@ -3,7 +3,10 @@ package com.umantis.poc.partitioner;
 import com.umantis.poc.model.BaseMessage;
 
 /**
+ * Extension of BaseMessage for setting a dataSet partition assignment.
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 public class DataSetPartitionMessage extends BaseMessage {
 
@@ -34,7 +37,6 @@ public class DataSetPartitionMessage extends BaseMessage {
     public void setPartitionId(final int partitionId) {
         this.partitionId = partitionId;
     }
-
 
     public static DataSetPartitionMessageBuilder getBuilder() {
         return new DataSetPartitionMessageBuilder();

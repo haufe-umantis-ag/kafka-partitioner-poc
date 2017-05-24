@@ -3,7 +3,10 @@ package com.umantis.poc.admin;
 import java.util.List;
 
 /**
+ * Kafka utilities
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 public interface KafkaAdminUtils {
 

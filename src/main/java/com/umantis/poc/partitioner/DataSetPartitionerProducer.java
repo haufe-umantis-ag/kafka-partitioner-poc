@@ -13,6 +13,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
  * Common producer for sending DataSerPartitionerMessages to the related topic.
  *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 public class DataSetPartitionerProducer {
 

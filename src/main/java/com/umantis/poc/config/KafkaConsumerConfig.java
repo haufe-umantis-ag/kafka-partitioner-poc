@@ -17,7 +17,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Standard consumer configuration.
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @Configuration
 @EnableKafka

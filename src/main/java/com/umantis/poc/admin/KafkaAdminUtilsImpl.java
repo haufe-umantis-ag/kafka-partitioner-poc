@@ -18,7 +18,10 @@ import java.util.List;
 import java.util.Properties;
 
 /**
+ * Implementation of KafkaAdminUtils
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @Service
 public class KafkaAdminUtilsImpl implements KafkaAdminUtils {

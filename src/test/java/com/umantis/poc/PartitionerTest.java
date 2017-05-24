@@ -3,10 +3,10 @@ package com.umantis.poc;
 import com.umantis.poc.admin.KafkaAdminUtils;
 import com.umantis.poc.model.BaseMessage;
 import com.umantis.poc.partitioner.DataSetPartitionMessage;
-import com.umantis.poc.partitioner.DataSetPartitionerProducer;
 import com.umantis.poc.partitioner.DataSetPartitionerMap;
-import com.umantis.poc.partitioner.IUserService;
-import com.umantis.poc.partitioner.UserServiceImpl;
+import com.umantis.poc.partitioner.DataSetPartitionerProducer;
+import com.umantis.poc.users.UserService;
+import com.umantis.poc.users.UserServiceImpl;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -38,6 +38,7 @@ import java.util.stream.StreamSupport;
  * partition that were already existing at the time of subscribing to the topic.
  *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -88,9 +89,9 @@ public class PartitionerTest {
     }
 
     @Test()
-    public void testReceive() throws Exception {
-        IUserService iUserService = new UserServiceImpl();
-        for (String user : iUserService.findAllUsers()) {
+    public void given_topicWithNoDataSetPartitionsCreated_when_newMessagesAreSent_topicDataSetPartitionsAreCreated() throws Exception {
+        UserService userService = new UserServiceImpl();
+        for (String user : userService.findAllUsers()) {
 
             BaseMessage message = BaseMessage.builder()
                     .topic(TOPIC)

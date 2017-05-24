@@ -17,7 +17,9 @@ import java.util.Map;
 
 /**
  * Base producer configuration
+ *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @Configuration
 @DependsOn("TopicsInitializer")

@@ -7,23 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.Map;
 
+/**
+ * Custom Partitioner
+ *
+ * @author David Espinosa
+ * @author Gergely Szakács
+ */
+@Deprecated
 @Component
-public class KafkaUserCustomPatitioner implements Partitioner {
-
-    private IUserService userService;
+public class KafkaUserCustomPartitioner implements Partitioner {
 
     @Autowired
-    private DataSetPartitionerMap datasetPartitionerMap;
+    private DataSetPartitionerService dataSetPartitionerService;
 
-    public KafkaUserCustomPatitioner() {
-        userService = new UserServiceImpl();
+    public KafkaUserCustomPartitioner() {
     }
-
-//    @Autowired
-//    public KafkaUserCustomPatitioner(DatasetPartitionerMap datasetPartitionerMap) {
-//        userService = new UserServiceImpl();
-//        this.datasetPartitionerMap = datasetPartitionerMap;
-//    }
 
     @Override
     public void configure(Map<String, ?> configs) {
@@ -35,16 +33,11 @@ public class KafkaUserCustomPatitioner implements Partitioner {
             Cluster cluster) {
 
         BaseMessage baseMessage = (BaseMessage) value;
-        int partition = 0;
         // Find the id of current user based on the username
-        Integer userId = userService.findUserId(baseMessage.getDatasetId());
+        int userId = dataSetPartitionerService.getPartitionForDataSetId(baseMessage.getTopic(), baseMessage.getDatasetId());
         // If the userId not found, default partition is 0
-        if (userId != null) {
-            partition = userId;
-        }
-        return partition;
+        return userId;
     }
-
 
     @Override
     public void close() {

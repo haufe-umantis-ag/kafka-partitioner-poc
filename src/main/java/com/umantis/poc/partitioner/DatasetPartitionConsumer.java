@@ -17,6 +17,7 @@ import java.util.stream.StreamSupport;
  * relations between a dataSet and a concrete partition.
  *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 public class DataSetPartitionConsumer extends KafkaConsumer {
 

@@ -1,5 +1,14 @@
 = Haufe Kafka Partitioner PoC
 
+This projects provides an example of how using kafka partitions as a routing mechanism, creating this way a phisical multitenant usage of a kafka cluster.
+In this project you will find several times the word DataSet, which reffers at the data set related to a given customer.
+In order to link a partition with it's customer, or dataSet, a configuration message is created as a log message in a dedicated topic, which is not partitioned.
+These messages are created dinamically any time a new dataSet arrives to the application, and is stored in order to be retrieved lately using
+an Event Sourcing approach where the Event Store is the Kafka itself.
+
+
+== Execution
+
 In order to be able to execute the integration tests existing in the project, you will need to have active a real kafka and zookeeper service.
 If you don't have an already existing installation, you can use a docker instansce this way:
 
@@ -13,7 +22,7 @@ If you don't have docker-machine in your system you can always:
 
 [source,bash]
 ----
-docker run -d -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=`ipconfig getifaddr en0` --env ADVERTISED_PORT=9092 spotify/kafka
+docker run -d -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=`[your ip here]` --env ADVERTISED_PORT=9092 spotify/kafka
 ----
 [%hardbreaks]
 

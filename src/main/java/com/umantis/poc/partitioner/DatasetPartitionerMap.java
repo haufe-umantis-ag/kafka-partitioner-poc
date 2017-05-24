@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  * This maps loads all existing relations between dataSets and partitions.
  *
  * @author David Espinosa.
+ * @author Gergely Szakács
  */
 @Component
 public class DataSetPartitionerMap {

@@ -1,11 +1,11 @@
-package com.umantis.poc.partitioner;
+package com.umantis.poc.users;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 
 
   // Pairs of username and id

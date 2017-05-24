@@ -4,6 +4,7 @@ package com.umantis.poc.model;
  * Base class for messages sent by Kafka
  *
  * @author David Espinosa
+ * @author Gergely Szakács
  */
 public class BaseMessage {
 
