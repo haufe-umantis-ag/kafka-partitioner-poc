@@ -7,7 +7,7 @@ In order to link a partition with it's customer, or dataSet, a configuration mes
 These messages are created dynamically any time a new dataSet arrives to the application, and is stored in order to be retrieved lately using
 an Event Sourcing approach where the Event Store is the Kafka itself.
 
-image::partitioner.png[partitioner, 765, 440]
+image::partitioner.png[partitioner, 956, 550]
 
 == Execution
 
