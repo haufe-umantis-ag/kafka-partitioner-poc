@@ -31,6 +31,9 @@ docker run -d -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=`[your ip here]` -
 or the related windows commands....
 
 
+== Status Quo
+
+The project is in prototype-state right now and acts as a proof of concept.
 
 == Tests
 
